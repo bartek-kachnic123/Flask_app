@@ -1,2 +1,2 @@
 let x = 1;
-document.write(x + 2);
+document.getElementById("main").innerHTML = x + 1;
