@@ -7,8 +7,8 @@ endblock%} {% block style %}
     padding: 15px;
     margin: auto;
   }
-  .form-sign_up .form-sign_up input {
-    margin-bottom: 3px;
+  .form-sign_up input {
+    margin-bottom: 2px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
@@ -23,7 +23,12 @@ endblock%} {% block style %}
       src="{{url_for('static', filename='/img/settings_icon.png')}}"
       alt=""
     />
-    <h1 class="mb-3 fw-normal text-muted">Sign up</h1>
+    <div class="row">
+      <div class="col">
+        <h1 class="fw-normal text-muted">Sign up</h1>
+        <hr />
+      </div>
+    </div>
     <div class="form-floating">
       <input
         type="text"
