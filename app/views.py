@@ -1,5 +1,6 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
+from app.forms import LoginForm
 @app.route('/')
 def index():
     return render_template('/public/dashboard.html')
@@ -15,3 +16,12 @@ def sign_up():
         return redirect('/sign_up') # zmienic przekierowanie na sign_in
     
     return render_template('/public/sign_up.html')
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash(f'You have sucessfully logged in!', category="success")
+        return redirect('/')
+    return render_template('/public/login.html', form = form)

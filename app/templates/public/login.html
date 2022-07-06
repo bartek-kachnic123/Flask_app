@@ -1,0 +1,44 @@
+{% extends '/public/templates/base.html'%} {% block title %} Sign in {%
+endblock%} {% block style %}
+<style>
+  .form-sign_up {
+    text-align: center;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+  .form-sign_up input {
+    margin-bottom: 2px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-sign_up input[type="password"] {
+    margin-bottom: 10px;
+  }
+</style>
+{% endblock %} {%block main %}
+<div class="form-sign_up">
+  <form action="/login" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <img
+      src="{{url_for('static', filename='/img/settings_icon.png')}}"
+      alt=""
+    />
+    <div class="row">
+      <div class="col">
+        <h1 class="fw-normal text-muted">Sign in</h1>
+        <hr />
+      </div>
+    </div>
+    <div class="form-floating">
+      {{ form.email(class="form-control", placeholder="example@gmail.com")}}
+      <label>{{ form.email.label }}</label>
+    </div>
+    <div class="form-floating">
+      {{ form.password(class="form-control", placeholder="Password") }}
+      <label>{{ form.password.label }}</label>
+    </div>
+    {{ form.submit(class="w-100 btn btn-lg btn-primary") }}
+  </form>
+</div>
+{% endblock %}
