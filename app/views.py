@@ -1,7 +1,9 @@
 from app import app
-from flask import render_template, request, redirect, flash
+from flask import render_template, request, redirect, flash, url_for
 from app.forms import LoginForm
+
 @app.route('/')
+@app.route('/index')
 def index():
     return render_template('/public/dashboard.html')
 
@@ -24,7 +26,7 @@ def login():
     
     if form.validate_on_submit():
         flash(f'You have sucessfully logged in!', category="success")
-        return redirect('/')
+        return redirect(url_for('index'))
     # Any login error
     elif form.is_submitted() and not form.validate():
         for key, info in form.errors.items():
