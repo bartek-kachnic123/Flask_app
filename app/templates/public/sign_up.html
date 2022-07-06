@@ -1,0 +1,57 @@
+{% extends '/public/templates/base.html'%} {% block title %} Sign up {%
+endblock%} {% block style %}
+<style>
+  .form-sign_up {
+    text-align: center;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+  .form-sign_up .form-sign_up input {
+    margin-bottom: 3px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-sign_up input[type="password"] {
+    margin-bottom: 10px;
+  }
+</style>
+{% endblock %} {%block main %}
+<div class="form-sign_up">
+  <form action="/sign_up" method="POST">
+    <img
+      src="{{url_for('static', filename='/img/settings_icon.png')}}"
+      alt=""
+    />
+    <h1 class="mb-3 fw-normal text-muted">Sign up</h1>
+    <div class="form-floating">
+      <input
+        type="text"
+        class="form-control"
+        name="username"
+        placeholder="Username"
+      />
+      <label>Username</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        placeholder="example@gmail.com"
+      />
+      <label>Email address</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        placeholder="Password"
+      />
+      <label>Password</label>
+    </div>
+    <button type="submit" class="w-100 btn btn-lg btn-primary">Sign up</button>
+  </form>
+</div>
+{% endblock %}
