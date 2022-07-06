@@ -19,7 +19,7 @@ endblock%} {% block style %}
 {% endblock %} {%block main %}
 <div class="form-sign_up">
   <form action="/login" method="POST" novalidate>
-    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
     <img
       src="{{url_for('static', filename='/img/settings_icon.png')}}"
       alt=""

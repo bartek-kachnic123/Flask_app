@@ -21,7 +21,12 @@ def sign_up():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    
     if form.validate_on_submit():
         flash(f'You have sucessfully logged in!', category="success")
         return redirect('/')
+    # Any login error
+    elif form.is_submitted() and not form.validate():
+        for key, info in form.errors.items():
+            flash(f'{key.capitalize()} - {" - ".join(info)}', category='warning')
     return render_template('/public/login.html', form = form)
