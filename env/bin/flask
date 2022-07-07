@@ -1,4 +1,4 @@
-#!/home/kachnic_1186205/App/env/bin/python3
+#!/home/kachnic1186205/Flask_app/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
