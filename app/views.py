@@ -1,31 +1,40 @@
-from app import app
+from app import app, db
 from flask import render_template, request, redirect, flash, url_for
-from app.forms import LoginForm
+from app.forms import LoginForm, RegisterForm
+from app.models import Users
 
+# Main site
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('/public/dashboard.html')
 
 
-@app.route('/sign_up', methods=['GET', 'POST'])
-def sign_up():
+# Sign up operation
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
+
+        # Creating and adding user to database
+        user = Users(form.username.data, form.email.data, form.password.data)
+        db.session.add(user)
+        db.session.commit()
         
-        for key, name in request.form.items():
-            print(key, name)
-        return redirect('/sign_up') # zmienic przekierowanie na sign_in
+        flash('You successfully made account! Now you can log in!', category='success')
+        return redirect(url_for('login'))
     
-    return render_template('/public/sign_up.html')
+    return render_template('/public/register.html', form = form)
 
 
+# Sign in operation
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     
     if form.validate_on_submit():
-        flash(f'You have sucessfully logged in!', category="success")
+        flash('You have successfully logged in!', category="success")
         return redirect(url_for('index'))
     
 
