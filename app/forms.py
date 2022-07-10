@@ -1,15 +1,13 @@
-
-from unicodedata import digit
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, EmailField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Length, Email, ValidationError
+from wtforms.validators import InputRequired, Length, Email, ValidationError, EqualTo
 from re import search
 
 def password_check(form, field):
 
     # Password must be between 10 and 100 characters
-    if len(field.data) < 10 or len(field.data) > 100:
-        raise ValidationError("Must be between 10 and 100 characters!")
+    if len(field.data) < 10 or len(field.data) > 128:
+        raise ValidationError("Must be between 10 and 128 characters!")
 
     # searching for uppercase
     uppercase_error = search(r'[A-Z]', field.data) is None
@@ -34,8 +32,13 @@ def password_check(form, field):
 
 
 class LoginForm(FlaskForm):
-    email = EmailField("Email address", validators=[DataRequired(), Length(max=100), Email()])
-    password = PasswordField("Password", validators=[DataRequired(), password_check])
-    
+    email = EmailField("Email address", validators=[InputRequired(), Length(max=64), Email()])
+    password = PasswordField("Password", validators=[InputRequired(), Length(min=10, max=100), password_check])
 
     submit = SubmitField("Sign in")
+
+class RegisterForm(LoginForm):
+    username = StringField("Username", validators=[InputRequired(), Length(min=5, max=32)])
+    confirm_password = PasswordField("Confirm password", validators=[InputRequired(),EqualTo('password', message='Passwords do not match!')])
+
+    submit = SubmitField("Register now")
