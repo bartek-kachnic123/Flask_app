@@ -1,5 +1,7 @@
 from flask import Flask
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 
@@ -13,6 +15,9 @@ else:
 
 # Database
 db = SQLAlchemy(app)
+
+# Login
+login = LoginManager(app)
 
 from app import views, admin_views
 

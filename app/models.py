@@ -1,8 +1,12 @@
-from app import db
+from flask_login import UserMixin
+from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 
+@login.user_loader
+def user_loader(id):
+    return User.query.get(int(id))
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'Users'
 
     id = db.Column(db.Integer, primary_key = True)
