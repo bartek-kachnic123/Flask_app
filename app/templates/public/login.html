@@ -46,9 +46,9 @@ endblock%} {% block style %}
       </div>
     </div>
     <div class="form-floating">
-      {{ form.email(class="form-control", placeholder="example@gmail.com")}}
-      <label>{{ form.email.label }}</label>
-      {% if form.email.errors %} {% for error in form.email.errors %}
+      {{ form.email(class="form-control", placeholder="example@gmail.com")}} {{
+      form.email.label }} {% if form.email.errors %} {% for error in
+      form.email.errors %}
       <div
         class="w-100 alert alert-warning alert-dismissible fade show"
         role="alert"
@@ -69,9 +69,9 @@ endblock%} {% block style %}
       {% endfor %} {% endif %}
     </div>
     <div class="form-floating">
-      {{ form.password(class="form-control", placeholder="Password") }}
-      <label>{{ form.password.label }}</label>
-      {% if form.password.errors %} {% for error in form.password.errors %}
+      {{ form.password(class="form-control", placeholder="Password") }} {{
+      form.password.label }} {% if form.password.errors %} {% for error in
+      form.password.errors %}
       <div
         class="w-100 alert alert-warning alert-dismissible fade show"
         role="alert"
