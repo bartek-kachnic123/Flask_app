@@ -2,7 +2,7 @@ from app import app, db
 from flask import render_template, request, redirect, flash, url_for
 from app.forms import LoginForm, RegisterForm
 from app.models import User
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 # Main site
 @app.route('/')
@@ -10,11 +10,20 @@ from flask_login import current_user, login_user, logout_user
 def index():
     return render_template('/public/dashboard.html')
 
+# User profile
+@app.route('/profile/<username>')
+@login_required
+def profile(username):
+
+    # If user is not found, return 404 error
+    user = User.query.filter_by(username=username).first_or_404()
+
+    return render_template('private/profile.html', user=user)
 
 # Sign up operation
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    
+
     # if user is already logged
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -55,14 +64,12 @@ def login():
         flash('You have successfully logged in!', category='success')
         return redirect(url_for('index'))
 
-
-    
-
     return render_template('/public/login.html', form = form)
 
 
 # Logout operation
 @app.route('/logout')
 def logout():
+
     logout_user()
     return redirect(url_for('login'))
