@@ -14,6 +14,11 @@ def index():
 # Sign up operation
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    
+    # if user is already logged
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     form = RegisterForm()
 
     if form.validate_on_submit():
