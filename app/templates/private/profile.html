@@ -1,0 +1,17 @@
+{% extends 'public/templates/base.html' %} {% block title %} Profile {% endblock
+%} {% block main %} {% if current_user.username == user.username %}
+<div class="row">
+  <div class="col">
+    <h1 class="fw-normal text-muted">{{ current_user.username }}</h1>
+    <hr />
+  </div>
+</div>
+
+{% else %}
+<div class="row">
+  <div class="col">
+    <h1 class="fw-normal text-muted">Unknown Profile</h1>
+    <hr />
+  </div>
+</div>
+{% endif %} {% endblock %}

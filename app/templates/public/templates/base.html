@@ -47,7 +47,10 @@
             <!-- If user is logged -->
             {% if not current_user.is_anonymous %}
             <li class="nav-item">
-              <a class="nav-link disabled" aria-current="page" href="#"
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{{ url_for('profile', username=current_user.username) }}"
                 >Profile</a
               >
             </li>
