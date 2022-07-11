@@ -1,17 +1,21 @@
 {% extends 'public/templates/base.html' %} {% block title %} Profile {% endblock
-%} {% block main %} {% if current_user.username == user.username %}
-<div class="row">
-  <div class="col">
-    <h1 class="fw-normal text-muted">{{ current_user.username }}</h1>
-    <hr />
-  </div>
-</div>
-
-{% else %}
-<div class="row">
-  <div class="col">
-    <h1 class="fw-normal text-muted">Unknown Profile</h1>
-    <hr />
+%} {% block main %} {% if user == current_user %}
+<div class="d-flex justify-content-center">
+  <div class="row">
+    <div class="col">
+      <img
+        src="{{ url_for('static',filename='img/user.png') }}"
+        alt=""
+        witdh="128"
+        height="128"
+        class="rounded mt-4"
+      />
+      <h1 class="fw-normal text-muted">{{ current_user.username }}</h1>
+      <hr />
+      <a href="#"
+        ><button class="w-100 btn btn-info btn-md">Edit profile</button></a
+      >
+    </div>
   </div>
 </div>
 {% endif %} {% endblock %}
