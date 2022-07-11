@@ -12,9 +12,6 @@ endblock%} {% block style %}
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .form-sign_up input[type="password"] {
-    margin-bottom: 10px;
-  }
 </style>
 {% endblock %} {%block main %}
 <div class="form-sign_up">
@@ -120,7 +117,7 @@ endblock%} {% block style %}
       </div>
       {% endfor %} {% endif %}
     </div>
-    {{ form.submit(class="w-100 btn btn-lg btn-primary") }}
+    {{ form.submit(class="mt-2 w-100 btn btn-lg btn-primary") }}
   </form>
 </div>
 {% endblock %}
