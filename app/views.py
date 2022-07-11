@@ -2,7 +2,7 @@ from app import app, db
 from flask import render_template, request, redirect, flash, url_for
 from app.forms import LoginForm, RegisterForm
 from app.models import User
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 
 # Main site
 @app.route('/')
@@ -33,7 +33,7 @@ def register():
 
 
 # Sign in operation
-@app.route("/login", methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     # if already logged
@@ -47,10 +47,17 @@ def login():
         # Login user
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user)
-        flash('You have successfully logged in!', category="success")
+        flash('You have successfully logged in!', category='success')
         return redirect(url_for('index'))
 
 
     
 
     return render_template('/public/login.html', form = form)
+
+
+# Logout operation
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
