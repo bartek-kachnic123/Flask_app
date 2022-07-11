@@ -27,7 +27,7 @@ endblock%} {% block style %}
     font-size: auto;
   }
   .form-checkbox-custom {
-    float: right;
+    margin-left: calc(100% / 3);
     margin-bottom: 10px;
   }
 </style>
@@ -90,9 +90,11 @@ endblock%} {% block style %}
       </div>
       {% endfor %} {% endif %}
     </div>
-    <div class="form-check form-switch form-checkbox-custom">
-      {{ form.remember_me(class="form-check-input") }} {{
-      form.remember_me.label(class="form-check-label") }}
+    <div class="d-flex form-checkbox-custom">
+      <div class="form-check form-switch">
+        {{ form.remember_me(class="form-check-input ml-10") }} {{
+        form.remember_me.label(class="form-check-label") }}
+      </div>
     </div>
     {{ form.submit(class="w-100 btn btn-lg btn-primary") }}
   </form>
