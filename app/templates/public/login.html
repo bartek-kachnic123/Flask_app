@@ -26,6 +26,10 @@ endblock%} {% block style %}
     text-align: center;
     font-size: auto;
   }
+  .form-checkbox-custom {
+    float: right;
+    margin-bottom: 10px;
+  }
 </style>
 {% endblock %} {%block main %}
 <div class="form-sign_in">
@@ -85,6 +89,10 @@ endblock%} {% block style %}
         ></button>
       </div>
       {% endfor %} {% endif %}
+    </div>
+    <div class="form-check form-switch form-checkbox-custom">
+      {{ form.remember_me(class="form-check-input") }} {{
+      form.remember_me.label(class="form-check-label") }}
     </div>
     {{ form.submit(class="w-100 btn btn-lg btn-primary") }}
   </form>

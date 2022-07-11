@@ -61,7 +61,9 @@ def login():
         
         # Login user
         user = User.query.filter_by(email=form.email.data).first()
-        login_user(user)
+        # Login user with remember option
+        login_user(user, remember=form.remember_me.data)
+        flash('You have successfully logged in!', category='success')
 
         # get query string 'next' attr
         next_page = request.args.get('next')
@@ -69,7 +71,6 @@ def login():
         # if next page doesnt exist or if url includes full path with domain name
         if not next_page or url_parse(next_page).netloc != '':
             return redirect(url_for('index'))
-        flash('You have successfully logged in!', category='success')
         return redirect(next_page)
 
     return render_template('/public/login.html', form = form)
