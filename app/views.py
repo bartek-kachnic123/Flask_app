@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, flash, url_for
 from app.forms import LoginForm, RegisterForm
 from app.models import User
 from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.urls import url_parse
 
 # Main site
 @app.route('/')
@@ -61,8 +62,15 @@ def login():
         # Login user
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user)
+
+        # get query string 'next' attr
+        next_page = request.args.get('next')
+
+        # if next page doesnt exist or if url includes full path with domain name
+        if not next_page or url_parse(next_page).netloc != '':
+            return redirect(url_for('index'))
         flash('You have successfully logged in!', category='success')
-        return redirect(url_for('index'))
+        return redirect(next_page)
 
     return render_template('/public/login.html', form = form)
 
