@@ -1,21 +1,58 @@
-{% extends 'public/templates/base.html' %} {% block title %} Profile {% endblock
-%} {% block main %} {% if user == current_user %}
-<div class="d-flex justify-content-center">
-  <div class="row">
-    <div class="col">
-      <img
-        src="{{ url_for('static',filename='img/user.png') }}"
-        alt=""
-        witdh="128"
-        height="128"
-        class="rounded mt-4"
-      />
-      <h1 class="fw-normal text-muted">{{ current_user.username }}</h1>
-      <hr />
-      <a href="#"
-        ><button class="w-100 btn btn-info btn-md">Edit profile</button></a
+{% extends 'public/templates/base.html' %}
+
+<!-- TITLE -->
+{% block title %} Profile {% endblock %}
+
+<!-- STYLE CSS -->
+{% block style %}
+<style></style>
+{% endblock %}
+
+<!-- MAIN -->
+{% block main %} {% if user == current_user %}
+<div class="section text-center p-5 text-dark">
+  <div class="cointainer">
+    <div class="d-sm-flex">
+      <div
+        class="card"
+        style="
+          background-color: #30d5c8;
+          border-radius: 10px;
+          padding: 40px;
+          z-index: 100;
+          justify-self: flex-end;
+        "
       >
+        <div class="card-header">Request with your problem</div>
+        <div class="card-body">
+          <form action="" method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+              {{form.name.label(class="form-label")}}
+              {{form.name(class="form-control")}}
+              {{form.lastname.label(class="form-label")}}
+              {{form.lastname(class="form-control")}}
+              {{form.description.label(class="form-label")}}
+              {{form.description(class="form-control", rows="5")}}
+              {{form.submit(class="btn btn-primary w-50 mt-2")}}
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <img
+          src="{{ url_for('static',filename='img/user.png') }}"
+          alt=""
+          witdh="128"
+          height="128"
+          class="rounded-circle d-block mx-auto"
+        />
+        <h1 class="fw-normal">{{ current_user.username }}</h1>
+        <hr />
+        <!-- add waiting patients -->
+      </div>
     </div>
   </div>
 </div>
+
 {% endif %} {% endblock %}

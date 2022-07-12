@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, request, redirect, flash, url_for
-from app.forms import LoginForm, RegisterForm
+from app.forms import LoginForm, RegisterForm, PatientForm
 from app.models import User
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
@@ -12,14 +12,16 @@ def index():
     return render_template('/public/dashboard.html')
 
 # User profile
-@app.route('/profile/<username>')
+@app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
 def profile(username):
 
     # If user is not found, return 404 error
     user = User.query.filter_by(username=username).first_or_404()
 
-    return render_template('private/profile.html', user=user)
+    form = PatientForm()
+
+    return render_template('private/profile.html', user=user, form=form)
 
 # Sign up operation
 @app.route('/register', methods=['GET', 'POST'])
