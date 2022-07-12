@@ -23,7 +23,7 @@ def profile(username):
     patients = Patient.query.filter_by(user_id=current_user.id).all()
 
     form = PatientForm()
-    if form.validate_on_submit() and len(patients) < 6:
+    if form.validate_on_submit() and len(patients) < 5:
         #Creating patient
         patient = Patient(user_id=current_user.id, firstname=form.firstname.data, lastname=form.lastname.data, description=form.description.data)
         # Adding patient to database
