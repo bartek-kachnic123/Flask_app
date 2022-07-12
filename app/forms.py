@@ -72,7 +72,7 @@ class RegisterForm(FlaskForm):
 
 class PatientForm(FlaskForm):
 
-    name = StringField("Name", validators=[InputRequired(),Length(max=64)])
+    firstname = StringField("Firstname", validators=[InputRequired(),Length(max=64)])
     lastname = StringField("Lastname", validators=[InputRequired(), Length(max=64)])
     description = TextAreaField("Describe your problem", validators=[InputRequired(), Length(max=500)])
     submit = SubmitField("Send")
