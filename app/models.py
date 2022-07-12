@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 @login.user_loader
 def user_loader(id):
@@ -25,4 +26,13 @@ class User(db.Model, UserMixin):
     
         
 
-    
+class Patient(db.Model):
+    __tablename__ = "Patients"
+
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    firstname = db.Column(db.String(64), nullable = False)
+    lastname = db.Column(db.String(64), nullable = False)
+    description = db.Column(db.String(500), nullable = False)
+    status = db.Column(db.Boolean, default=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
