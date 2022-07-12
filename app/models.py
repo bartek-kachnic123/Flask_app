@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128), nullable = False)
 
     # Hash password
-    def hash_password(self):
-        self.password = generate_password_hash(self.password)
+    def hash_password(self, password):
+        self.password = generate_password_hash(password)
     
     # Checks if hashed password is equal to input password
     def check_password(self, input_password):

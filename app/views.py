@@ -49,9 +49,9 @@ def register():
     if form.validate_on_submit():
 
         # Creating user
-        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        user = User(username=form.username.data, email=form.email.data)
         # Hashing password
-        user.hash_password()
+        user.hash_password(form.password.data)
         # Adding user to database
         db.session.add(user)
         db.session.commit()
