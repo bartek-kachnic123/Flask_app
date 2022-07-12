@@ -35,4 +35,8 @@ class Patient(db.Model):
     lastname = db.Column(db.String(64), nullable = False)
     description = db.Column(db.String(500), nullable = False)
     status = db.Column(db.Boolean, default=False)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
+    timestamp = db.Column(db.DateTime, index=True)
+
+    # set date 
+    def set_date(self):
+        self.timestamp = datetime.utcnow()

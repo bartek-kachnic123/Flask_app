@@ -69,7 +69,7 @@
               <td>
                 {% if patient.status %} Ready {% else %} Waiting {% endif %}
               </td>
-              <td>{{ patient.timestamp.strftime("%B %-d, %Y %H:%M") }}</td>
+              <td>{{ moment(patient.timestamp).format("LLL") }}</td>
             </tr>
             {% endfor %} {% endif %}
           </tbody>
@@ -80,3 +80,5 @@
 </div>
 
 {% endif %} {% endblock %}
+<!-- SCRIPT -->
+{% block script %} {{ super() }} {{ moment.include_moment() }} {% endblock%}

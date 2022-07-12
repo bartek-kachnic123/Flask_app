@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_moment import Moment
+
 
 
 app = Flask(__name__)
@@ -19,6 +21,9 @@ db = SQLAlchemy(app)
 # Login
 login = LoginManager(app)
 login.login_view = 'login'
+
+# Moment (Time zone)
+moment = Moment(app)
 
 from app import views, admin_views
 

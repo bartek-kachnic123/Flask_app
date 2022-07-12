@@ -26,6 +26,8 @@ def profile(username):
     if form.validate_on_submit() and len(patients) < 5:
         #Creating patient
         patient = Patient(user_id=current_user.id, firstname=form.firstname.data, lastname=form.lastname.data, description=form.description.data)
+        # set current date
+        patient.set_date()
         # Adding patient to database
         db.session.add(patient)
         db.session.commit()
