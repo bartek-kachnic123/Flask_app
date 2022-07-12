@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, EmailField, BooleanField, SubmitField
+from wtforms import PasswordField, StringField, EmailField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import InputRequired, Length, Email, ValidationError, EqualTo
 from re import search
-
 from app.models import User
+
+
 
 
 
@@ -67,3 +68,12 @@ class RegisterForm(FlaskForm):
         symbol_error = search(r'\W', password.data) is None
         if symbol_error:
             raise ValidationError("Must have at least 1 special symbol!")
+
+
+class PatientForm(FlaskForm):
+
+    name = StringField("Name", validators=[InputRequired(),Length(max=64)])
+    lastname = StringField("Lastname", validators=[InputRequired(), Length(max=64)])
+    description = TextAreaField("Describe your problem", validators=[InputRequired(), Length(max=500)])
+    submit = SubmitField("Send")
+
