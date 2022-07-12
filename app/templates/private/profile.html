@@ -28,8 +28,8 @@
           <form action="" method="POST">
             {{ form.csrf_token }}
             <div class="form-group">
-              {{form.name.label(class="form-label")}}
-              {{form.name(class="form-control")}}
+              {{form.firstname.label(class="form-label")}}
+              {{form.firstname(class="form-control")}}
               {{form.lastname.label(class="form-label")}}
               {{form.lastname(class="form-control")}}
               {{form.description.label(class="form-label")}}
@@ -50,6 +50,30 @@
         <h1 class="fw-normal">{{ current_user.username }}</h1>
         <hr />
         <!-- add waiting patients -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nr</th>
+              <th scope="col">Firstname</th>
+              <th scope="col">Lastname</th>
+              <th scope="col">Your status</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if patients %} {% for patient in patients %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ patient.firstname }}</td>
+              <td>{{ patient.lastname }}</td>
+              <td>
+                {% if patient.status %} Ready {% else %} Waiting {% endif %}
+              </td>
+              <td>{{ patient.timestamp.strftime("%B %-d, %Y %H:%M") }}</td>
+            </tr>
+            {% endfor %} {% endif %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

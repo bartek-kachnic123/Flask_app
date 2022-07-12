@@ -1,7 +1,7 @@
 from app import app, db
 from flask import render_template, request, redirect, flash, url_for
 from app.forms import LoginForm, RegisterForm, PatientForm
-from app.models import User
+from app.models import Patient, User
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
 
@@ -18,10 +18,23 @@ def profile(username):
 
     # If user is not found, return 404 error
     user = User.query.filter_by(username=username).first_or_404()
+    
+    # get patients data
+    patients = Patient.query.filter_by(user_id=current_user.id).all()
 
     form = PatientForm()
+    if form.validate_on_submit() and len(patients) < 6:
+        #Creating patient
+        patient = Patient(user_id=current_user.id, firstname=form.firstname.data, lastname=form.lastname.data, description=form.description.data)
+        # Adding patient to database
+        db.session.add(patient)
+        db.session.commit()
 
-    return render_template('private/profile.html', user=user, form=form)
+        flash('Your entry was completed!', category='success')
+        return redirect(url_for('profile', username=current_user.username))
+        
+
+    return render_template('private/profile.html', user=user, form=form, patients = patients)
 
 # Sign up operation
 @app.route('/register', methods=['GET', 'POST'])
